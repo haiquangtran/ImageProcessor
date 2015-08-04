@@ -10,15 +10,19 @@ public class ImageProcessorApp {
 
 	public static void main(String[] args) {
 		String folder = "src/assets/";
-		String filename = "test-pattern.tif";
+		//Hard coded for testing
+		String image1 = "test-pattern.tif";
+		String image2 = "blurry-moon.tif";
+		String image3 = "ckt-board-saltpep.tif";
+		String image4 = "hubble.tif";
 
-		ImagePlus mainImage = new ImagePlus(folder + filename);
+		ImagePlus mainImage = new ImagePlus(folder + image1);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
 		int width = mainImage.getWidth();
 		int height = mainImage.getHeight();
 
-		//Process Sobel operator
+		//Filter image using Sobel operator
 		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
 		sobelOperator.run(imageProcessor);
 
