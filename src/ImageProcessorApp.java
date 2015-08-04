@@ -16,15 +16,18 @@ public class ImageProcessorApp {
 		String image3 = "ckt-board-saltpep.tif";
 		String image4 = "hubble.tif";
 
-		ImagePlus mainImage = new ImagePlus(folder + image1);
+		ImagePlus mainImage = new ImagePlus(folder + image3);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
 		int width = mainImage.getWidth();
 		int height = mainImage.getHeight();
 
 		//Filter image using Sobel operator
-		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
-		sobelOperator.run(imageProcessor);
+//		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
+//		sobelOperator.run(imageProcessor);
+		//Filter image using noise reduction
+		NoiseReductionFilter noiseReduction = new NoiseReductionFilter();
+		noiseReduction.run(imageProcessor);
 
 		//Display filtered image
 		mainImage.show();
