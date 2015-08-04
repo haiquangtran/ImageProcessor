@@ -10,15 +10,17 @@ import ij.process.*;
 
 import java.lang.Math.*;
 
+import utils.ImageHelper;
+
 public class SobelOperatorFilter implements PlugInFilter {
-	private int[][] rowMask =
+	private double[][] rowMask =
 		{
 			{-1, 0, 1},
-			{-5, 0, 5},	//Can modify for weighting to mask
+			{-5, 0, 5},	//Can add weighting to mask
 			{-1, 0, 1}
 		};
 
-	private int[][] colMask =
+	private double[][] colMask =
 		{
 			{-1,-2,-1},
 			{0, 0, 0},
@@ -36,17 +38,17 @@ public class SobelOperatorFilter implements PlugInFilter {
 
     	for (int row = 1; row < width-1; row++) {
     		for (int col = 1; col < height-1; col++) {
-    			//Calculates values that the mask will overlay
-    			int[][] matrix =
+    			//Values the mask will overlay
+    			double[][] matrix =
     				{
     					{image.getPixel(row-1, col-1), image.getPixel(row, col-1), image.getPixel(row+1, col-1)},
     					{image.getPixel(row-1, col), image.getPixel(row, col), image.getPixel(row+1, col)},
     					{image.getPixel(row-1, col+1), image.getPixel(row, col+1), image.getPixel(row+1, col+1)}
     				};
     			//Detect horizontal direction
-    			int pixelX = innerProduct(matrix, rowMask);
+    			double pixelX = ImageHelper.innerProduct(matrix, rowMask);
     			//Detect vertical direction
-    			int pixelY = innerProduct(matrix, colMask);
+    			double pixelY = ImageHelper.innerProduct(matrix, colMask);
 
     			//Edge magnitude
     			int magnitude = (int) Math.sqrt((pixelX * pixelX) + (pixelY * pixelY));
@@ -63,28 +65,10 @@ public class SobelOperatorFilter implements PlugInFilter {
     	}
     }
 
-    /**
-     * Calculates inner product of two matrices that have the same length
-     * @param matrix1
-     * @param matrix2
-     * @return
-     */
-    public int innerProduct(int[][] matrix1, int[][] matrix2) {
-    	int result = 0;
-
-    	for (int i = 0; i < matrix1.length; i++) {
-    		for (int j = 0; j < matrix1.length; j++) {
-    			result += (matrix1[i][j] * matrix2[i][j]);
-    		}
-    	}
-
-    	return result;
-    }
-
 	@Override
 	public int setup(String arg0, ImagePlus arg1) {
 		// TODO Auto-generated method stub
-		return 0;
+		return DOES_8G;
 	}
 
 }

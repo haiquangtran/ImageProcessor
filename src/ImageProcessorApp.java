@@ -19,9 +19,6 @@ public class ImageProcessorApp {
 		ImagePlus mainImage = new ImagePlus(folder + image3);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
-		int width = mainImage.getWidth();
-		int height = mainImage.getHeight();
-
 		//Filter image using Sobel operator
 //		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
 //		sobelOperator.run(imageProcessor);

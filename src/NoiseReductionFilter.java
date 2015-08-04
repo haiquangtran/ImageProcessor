@@ -10,12 +10,14 @@ import ij.process.*;
 
 import java.lang.Math.*;
 
+import utils.ImageHelper;
+
 public class NoiseReductionFilter implements PlugInFilter {
-	private int[][] meanFilter =
+	private double[][] meanFilter =
 		{
-			{1/9, 1/9, 1/9},
-			{1/9, 1/9, 1/9},
-			{1/9, 1/9, 1/9}
+			{1.0/9, 1.0/9, 1.0/9},
+			{1.0/9, 1.0/9, 1.0/9},
+			{1.0/9, 1.0/9, 1.0/9},
 		};
 
     /**
@@ -26,53 +28,36 @@ public class NoiseReductionFilter implements PlugInFilter {
     	int height = imageProcessor.getHeight();
 
     	ImageProcessor image = imageProcessor.duplicate();
-
+    	
     	for (int row = 1; row < width-1; row++) {
     		for (int col = 1; col < height-1; col++) {
-    			//Calculates values that the mask will overlay
-    			int[][] matrix =
+    			//Values the mask will overlay
+    			double[][] matrix =
     				{
     					{image.getPixel(row-1, col-1), image.getPixel(row, col-1), image.getPixel(row+1, col-1)},
     					{image.getPixel(row-1, col), image.getPixel(row, col), image.getPixel(row+1, col)},
     					{image.getPixel(row-1, col+1), image.getPixel(row, col+1), image.getPixel(row+1, col+1)}
     				};
-    			//Apply mask
-    			int val = innerProduct(matrix, meanFilter);
+    			//Apply mean filter
+    			int resultValue = ImageHelper.innerProduct(matrix, meanFilter);
 
     			//Grey-scale
-                if (val < 0) {
-                	val = 0;
-                } else if (val > 255) {
-                	val = 255;
+                if (resultValue < 0) {
+                	resultValue = 0;
+                } else if (resultValue > 255) {
+                	resultValue = 255;
                 }
-
-    			imageProcessor.putPixel(row, col, val);
+                
+    			imageProcessor.putPixelValue(row, col, resultValue);
     		}
     	}
-    }
-
-    /**
-     * Calculates inner product of two matrices that have the same length
-     * @param matrix1
-     * @param matrix2
-     * @return
-     */
-    public int innerProduct(int[][] matrix1, int[][] matrix2) {
-    	int result = 0;
-
-    	for (int i = 0; i < matrix1.length; i++) {
-    		for (int j = 0; j < matrix1.length; j++) {
-    			result += (matrix1[i][j] * matrix2[i][j]);
-    		}
-    	}
-
-    	return result;
+    	
     }
 
 	@Override
 	public int setup(String arg0, ImagePlus arg1) {
 		// TODO Auto-generated method stub
-		return 0;
+		return DOES_8G;
 	}
 
 }
