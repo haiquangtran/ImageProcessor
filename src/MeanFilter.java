@@ -12,7 +12,14 @@ import java.lang.Math.*;
 
 import utils.ImageHelper;
 
-public class NoiseReductionFilter implements PlugInFilter {
+/**
+ * Applies 3x3 Mean Filter mask to an image using the Convolution process.
+ * Used for Noise Reduction in Images.
+ * 
+ * @author Hai Tran
+ *
+ */
+public class MeanFilter implements PlugInFilter {
 	private double[][] meanFilter =
 		{
 			{1.0/9, 1.0/9, 1.0/9},
@@ -21,7 +28,7 @@ public class NoiseReductionFilter implements PlugInFilter {
 		};
 
     /**
-     * Process the image using Sobel Operator Filter for edge detection.
+     * Process the image using Mean Filter for Noise Reduction.
      */
     public void run(ImageProcessor imageProcessor) {
     	int width = imageProcessor.getWidth();

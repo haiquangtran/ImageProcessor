@@ -23,8 +23,10 @@ public class ImageProcessorApp {
 //		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
 //		sobelOperator.run(imageProcessor);
 		//Filter image using noise reduction
-		NoiseReductionFilter noiseReduction = new NoiseReductionFilter();
-		noiseReduction.run(imageProcessor);
+//		MeanFilter meanFilter = new MeanFilter();
+//		meanFilter.run(imageProcessor);
+		MedianFilter medianFilter = new MedianFilter();
+		medianFilter.run(imageProcessor);
 
 		//Display filtered image
 		mainImage.show();
