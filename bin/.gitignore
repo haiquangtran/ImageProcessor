@@ -3,3 +3,5 @@
 /MeanFilter.class
 /MedianFilter.class
 /LaplacianFilter.class
+/ThresholdFilter.class
+/Threshold.class
