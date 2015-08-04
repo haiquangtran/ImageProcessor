@@ -2,3 +2,4 @@
 /utils/
 /MeanFilter.class
 /MedianFilter.class
+/LaplacianFilter.class

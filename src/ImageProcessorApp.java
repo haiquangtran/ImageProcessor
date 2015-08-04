@@ -16,17 +16,22 @@ public class ImageProcessorApp {
 		String image3 = "ckt-board-saltpep.tif";
 		String image4 = "hubble.tif";
 
-		ImagePlus mainImage = new ImagePlus(folder + image3);
+		ImagePlus mainImage = new ImagePlus(folder + image2);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
 		//Filter image using Sobel operator
 //		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
 //		sobelOperator.run(imageProcessor);
+		
 		//Filter image using noise reduction
 //		MeanFilter meanFilter = new MeanFilter();
 //		meanFilter.run(imageProcessor);
-		MedianFilter medianFilter = new MedianFilter();
-		medianFilter.run(imageProcessor);
+//		MedianFilter medianFilter = new MedianFilter();
+//		medianFilter.run(imageProcessor);
+		
+		//Filter image using image enhancement
+		LaplacianFilter laplacianFilter = new LaplacianFilter();
+		laplacianFilter.run(imageProcessor);
 
 		//Display filtered image
 		mainImage.show();

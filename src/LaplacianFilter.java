@@ -13,16 +13,28 @@ import java.lang.Math.*;
 import utils.ImageHelper;
 
 /**
- * Applies 3x3 Median Filter mask to an image using the Convolution process.
- * Used for Noise Reduction in Images.
+ * Applies 3x3 Laplacian Filter mask to an image using the Convolution process.
+ * Used for Image Enhancement of Images.
  * 
  * @author Hai Tran
  *
  */
-public class MedianFilter implements PlugInFilter {
+public class LaplacianFilter implements PlugInFilter {
+	private double[][] laplacianFilter =
+		{
+			{0, -1, 0},
+			{-1, 5, -1},
+			{0, -1, 0},
+		};
+	private double[][] laplacianFilter2 =
+		{
+			{1, -2, 1},
+			{-2, 5, -2},
+			{1, -2, 1},
+		};
 
     /**
-     * Process the image using Median Filter for Noise Reduction.
+     * Process the image using Laplacian Filter for Image Enhancement.
      */
     public void run(ImageProcessor imageProcessor) {
     	int width = imageProcessor.getWidth();
@@ -39,8 +51,8 @@ public class MedianFilter implements PlugInFilter {
     					{image.getPixel(row-1, col), image.getPixel(row, col), image.getPixel(row+1, col)},
     					{image.getPixel(row-1, col+1), image.getPixel(row, col+1), image.getPixel(row+1, col+1)}
     				};
-    			//Apply median filter
-    			int resultValue = (int) calculateMedian(matrix);
+    			//Apply filter
+    			int resultValue = ImageHelper.innerProduct(matrix, laplacianFilter);
 
     			//Grey-scale
                 if (resultValue < 0) {
@@ -53,43 +65,6 @@ public class MedianFilter implements PlugInFilter {
     		}
     	}
     	
-    }
-    
-    /**
-     * Returns the median value of a matrix.
-     * @param matrix
-     * @return median value
-     */
-    public double calculateMedian(double[][] matrix) {
-    	ArrayList<Double> matrixValues = getMatrixValuesList(matrix);
-    	Collections.sort(matrixValues);
-    	
-    	int n = matrixValues.size();
-    	double median;
-    	
-    	if (n % 2 == 0) {
-    		median = (matrixValues.get(n/2)) + (matrixValues.get(n/2 -1)) / 2;
-    	} else {
-    		median = matrixValues.get(n/2);
-    	}
-    	return median;
-    }
-    
-    /**
-     * Returns a array list containing the values in a matrix.
-     * @param matrix containing doubles
-     * @return ArrayList<Double>
-     */
-    private ArrayList<Double> getMatrixValuesList(double[][] matrix) {
-    	ArrayList<Double> matrixValues = new ArrayList<Double>();
-    	
-    	for (int i = 0; i < matrix.length; i++) {
-    		for (int j = 0; j < matrix[0].length; j++) {
-    			matrixValues.add(matrix[i][j]);
-    		}
-    	}
-    	
-    	return matrixValues;
     }
 
 	@Override
