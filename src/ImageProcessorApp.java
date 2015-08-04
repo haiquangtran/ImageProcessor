@@ -19,9 +19,9 @@ public class ImageProcessorApp {
 		int height = mainImage.getHeight();
 
 		//Process Sobel operator
-		SobelFilter sobelOperator = new SobelFilter();
+		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
 		sobelOperator.run(imageProcessor);
-		
+
 		//Display filtered image
 		mainImage.show();
 	}
