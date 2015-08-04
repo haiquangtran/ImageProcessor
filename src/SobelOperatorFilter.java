@@ -14,7 +14,7 @@ public class SobelOperatorFilter implements PlugInFilter {
 	private int[][] rowMask =
 		{
 			{-1, 0, 1},
-			{-2, 0, 2},
+			{-100, 0, 100},	//Can modify for weighting to mask
 			{-1, 0, 1}
 		};
 
