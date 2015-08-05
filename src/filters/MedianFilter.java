@@ -21,7 +21,8 @@ import utils.ImageHelper;
  *
  */
 public class MedianFilter implements PlugInFilter {
-
+	private int medianFilterSize = 3; //default 
+	
     /**
      * Process the image using Median Filter for Noise Reduction.
      */
@@ -34,7 +35,7 @@ public class MedianFilter implements PlugInFilter {
     	for (int row = 0; row < width; row++) {
     		for (int col = 0; col < height; col++) {
     			//Values the mask will overlay (3x3)
-    			double[][] matrix = ImageHelper.getMatrix(image, 3, row, col);
+    			double[][] matrix = ImageHelper.getMatrix(image, medianFilterSize, row, col);
     			//Apply median filter
     			int resultValue = (int) calculateMedian(matrix);
 
@@ -50,7 +51,18 @@ public class MedianFilter implements PlugInFilter {
     	}
 
     }
-
+    
+    /**
+     * Sets the median filter size which is used to determines
+     * the area of pixels to be considered by the filter. 
+     * For example, a size of 3 would indicate an area of 3x3 matrix.
+     *
+     * @param size
+     */
+    public void setMedianFilterSize(int size) {
+    	this.medianFilterSize = size;
+    }
+    
     /**
      * Returns the median value of a matrix.
      * @param matrix

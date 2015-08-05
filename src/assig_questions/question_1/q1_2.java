@@ -23,9 +23,11 @@ public class q1_2 {
 
 		//Filter image using Mean Filter
 		MeanFilter meanFilter= new MeanFilter();
+		meanFilter.setMeanFilterSize(5);
 		meanFilter.run(meanProcessor);
 		//Filter image using Median Filter
 		MedianFilter medianFilter = new MedianFilter();
+		medianFilter.setMedianFilterSize(5);
 		medianFilter.run(medianProcessor);
 
 		//Display filtered image
