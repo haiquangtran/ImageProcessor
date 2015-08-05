@@ -21,12 +21,8 @@ import utils.ImageHelper;
  *
  */
 public class MeanFilter implements PlugInFilter {
-	private double[][] meanFilter =
-		{
-			{1.0/9, 1.0/9, 1.0/9},
-			{1.0/9, 1.0/9, 1.0/9},
-			{1.0/9, 1.0/9, 1.0/9},
-		};
+	private int maskSize = 3; //default mask size
+	private double[][] meanFilter = createMeanFilter(maskSize);
 
     /**
      * Process the image using Mean Filter for Noise Reduction.
@@ -37,10 +33,10 @@ public class MeanFilter implements PlugInFilter {
 
     	ImageProcessor image = imageProcessor.duplicate();
 
-    	for (int row = 1; row < width-1; row++) {
-    		for (int col = 1; col < height-1; col++) {
+    	for (int row = 0; row < width; row++) {
+    		for (int col = 0; col < height; col++) {
     			//Values the mask will overlay
-    			double[][] matrix = ImageHelper.getMatrix3x3(image, row, col);
+    			double[][] matrix = ImageHelper.getMatrix(image, maskSize, row, col);
     			//Apply mean filter
     			int resultValue = ImageHelper.innerProduct(matrix, meanFilter);
 
@@ -55,6 +51,35 @@ public class MeanFilter implements PlugInFilter {
     		}
     	}
 
+    }
+
+    /**
+     * Sets the mean filter matrix with a specified size.
+     * Sets the maskSize to the specified size.
+     *
+     * @param size
+     */
+    public void setMeanFilterSize(int size) {
+    	this.maskSize = size;
+    	this.meanFilter = createMeanFilter(size);
+    }
+
+    /**
+     * Creates a mean filter matrix given the mask size.
+     * For example, if a maskSize of 3 is given, then a 3x3 mean filter matrix will be created.
+     *
+     * @param maskSize matrix size
+     * @return
+     */
+    public double[][] createMeanFilter(int maskSize) {
+    	double[][] matrix = new double[maskSize][maskSize];
+
+    	for (int i = 0; i < maskSize; i++) {
+    		for (int j = 0; j < maskSize; j++) {
+    			matrix[i][j] = (1.0 / (maskSize * maskSize));
+    		}
+    	}
+    	return matrix;
     }
 
 	@Override

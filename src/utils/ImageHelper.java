@@ -29,39 +29,36 @@ public class ImageHelper {
     	return result;
     }
 
-
     /**
-     * Returns 3x3 matrix of surrounding pixel values of an image given the row, and col.
-     * @param image
-     * @param row
-     * @param col
+     * Returns a matrixSize x matrixSize of surrounding pixel values of an image, given the row and col.
+     * For example, if matrixSize of 3 is specified it will give a 3x3 matrix of the surrounding pixel values of an image
+     * given the row and col.
+     *
+     * @param image the image being processed
+     * @param matrixSize the size of matrix for the mask
+     * @param row current x pixel of image
+     * @param col current y pixel of image
      * @return
      */
-    public static double[][] getMatrix3x3(ImageProcessor image, int row, int col) {
-		double[][] matrix =
-			{
-				{image.getPixel(row-1, col-1), image.getPixel(row, col-1), image.getPixel(row+1, col-1)},
-				{image.getPixel(row-1, col), image.getPixel(row, col), image.getPixel(row+1, col)},
-				{image.getPixel(row-1, col+1), image.getPixel(row, col+1), image.getPixel(row+1, col+1)}
-			};
-		return matrix;
-    }
+    public static double[][] getMatrix(ImageProcessor image, int matrixSize, int row, int col) {
+    	double[][] matrix = new double[matrixSize][matrixSize];
 
-    /**
-     * Returns 5x5 matrix of surrounding pixel values of an image given the row, and col.
-     * @param image
-     * @param row
-     * @param col
-     * @return
-     */
-    public static double[][] getMatrix5x5(ImageProcessor image, int row, int col) {
-		double[][] matrix =
-			{
-				{image.getPixel(row-1, col-1), image.getPixel(row, col-1), image.getPixel(row+1, col-1)},
-				{image.getPixel(row-1, col-1), image.getPixel(row, col-1), image.getPixel(row+1, col-1)},
-				{image.getPixel(row-1, col), image.getPixel(row, col), image.getPixel(row+1, col)},
-				{image.getPixel(row-1, col+1), image.getPixel(row, col+1), image.getPixel(row+1, col+1)}
-			};
-		return matrix;
+    	int startIndex = (int) Math.floor(matrixSize/2);
+
+    	//go through matrix to fill in matrix with image pixels
+    	for (int i = 0; i < matrixSize; i++) {
+    		for (int j = 0; j < matrixSize; j++) {
+    			//fill in matrix values from image
+    			int pixelRow = i + row - startIndex;
+				int pixelCol = j + col - startIndex;
+
+				if (row >= startIndex && row < image.getWidth()-startIndex
+						&& col >= startIndex && col < image.getHeight()-startIndex) {
+	    			matrix[i][j] = image.getPixel(pixelRow, pixelCol);
+				}
+    		}
+    	}
+
+    	return matrix;
     }
 }

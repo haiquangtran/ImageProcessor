@@ -23,14 +23,14 @@ public class ThresholdFilter implements PlugInFilter {
 
     	ImageProcessor image = imageProcessor.duplicate();
 
-    	for (int row = 1; row < width-1; row++) {
-    		for (int col = 1; col < height-1; col++) {
+    	for (int row = 0; row < width; row++) {
+    		for (int col = 0; col < height; col++) {
     			int resultValue = image.getPixel(row, col);
 
     			//threshold filter
-                if (resultValue < threshold || resultValue < 0) {
+                if (resultValue < threshold) {
                 	resultValue = 0;
-                } else if (resultValue >= threshold || resultValue > 255) {
+                } else if (resultValue >= threshold) {
                 	resultValue = 255;
                 }
 

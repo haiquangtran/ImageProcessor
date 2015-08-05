@@ -19,12 +19,17 @@ public class q2_1 {
 		ImagePlus mainImage = new ImagePlus(ImageHelper.FOLDER + ImageHelper.IMAGE_4);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
+		//Set variables
+		int matrixSize = 11;
+		int threshold = 70;
+
 		//Cleanse Image with Mean Filter
 		MeanFilter meanFilter= new MeanFilter();
+		meanFilter.setMeanFilterSize(matrixSize);
 		meanFilter.run(imageProcessor);
 		//Process using threshold filter
 		ThresholdFilter thresholdFilter = new ThresholdFilter();
-		thresholdFilter.setThreshold(60);
+		thresholdFilter.setThreshold(threshold);
 		thresholdFilter.run(imageProcessor);
 
 		//Display filtered image

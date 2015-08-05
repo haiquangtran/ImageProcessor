@@ -31,10 +31,10 @@ public class MedianFilter implements PlugInFilter {
 
     	ImageProcessor image = imageProcessor.duplicate();
 
-    	for (int row = 1; row < width-1; row++) {
-    		for (int col = 1; col < height-1; col++) {
+    	for (int row = 0; row < width; row++) {
+    		for (int col = 0; col < height; col++) {
     			//Values the mask will overlay (3x3)
-    			double[][] matrix = ImageHelper.getMatrix3x3(image, row, col);
+    			double[][] matrix = ImageHelper.getMatrix(image, 3, row, col);
     			//Apply median filter
     			int resultValue = (int) calculateMedian(matrix);
 
