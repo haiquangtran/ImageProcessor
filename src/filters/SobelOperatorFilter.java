@@ -1,3 +1,4 @@
+package filters;
 import ij.*;
 import ij.process.*;
 import ij.gui.*;
@@ -39,12 +40,7 @@ public class SobelOperatorFilter implements PlugInFilter {
     	for (int row = 1; row < width-1; row++) {
     		for (int col = 1; col < height-1; col++) {
     			//Values the mask will overlay
-    			double[][] matrix =
-    				{
-    					{image.getPixel(row-1, col-1), image.getPixel(row, col-1), image.getPixel(row+1, col-1)},
-    					{image.getPixel(row-1, col), image.getPixel(row, col), image.getPixel(row+1, col)},
-    					{image.getPixel(row-1, col+1), image.getPixel(row, col+1), image.getPixel(row+1, col+1)}
-    				};
+    			double[][] matrix = ImageHelper.getMatrix3x3(image, row, col);
     			//Detect horizontal direction
     			double pixelX = ImageHelper.innerProduct(matrix, rowMask);
     			//Detect vertical direction
