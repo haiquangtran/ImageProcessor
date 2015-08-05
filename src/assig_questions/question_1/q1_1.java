@@ -13,15 +13,19 @@ public class q1_1 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ImagePlus mainImage = new ImagePlus(ImageHelper.FOLDER + ImageHelper.IMAGE_1);
-		ImageProcessor imageProcessor = mainImage.getProcessor();
-
+		ImagePlus normalImage = new ImagePlus(ImageHelper.FOLDER + ImageHelper.IMAGE_1);
+		ImagePlus sobelImage = new ImagePlus(ImageHelper.FOLDER + ImageHelper.IMAGE_1);
+		
+		ImageProcessor imageProcessor = sobelImage.getProcessor();
+		
 		//Filter image using Sobel operator
 		SobelOperatorFilter sobelOperator = new SobelOperatorFilter();
 		sobelOperator.run(imageProcessor);
 
 		//Display filtered image
-		mainImage.show();
+		sobelImage.show();
+		normalImage.show();
+		
 	}
 
 }
