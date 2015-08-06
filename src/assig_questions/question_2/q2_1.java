@@ -16,6 +16,7 @@ public class q2_1 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		ImagePlus originalImage = new ImagePlus(ImageHelper.FOLDER + ImageHelper.IMAGE_4);
 		ImagePlus mainImage = new ImagePlus(ImageHelper.FOLDER + ImageHelper.IMAGE_4);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
@@ -34,6 +35,7 @@ public class q2_1 {
 
 		//Display filtered image
 		mainImage.show();
+		originalImage.show();
 	}
 
 }
