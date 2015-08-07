@@ -5,10 +5,10 @@ import ij.process.ImageProcessor;
 public class ImageHelper {
 	//Hard coded for assignment
 	public static final String FOLDER = "src/assets/";
-	public static final String IMAGE_1 = "test-pattern.tif";
-	public static final String IMAGE_2 = "blurry-moon.tif";
-	public static final String IMAGE_3 = "ckt-board-saltpep.tif";
-	public static final String IMAGE_4 = "hubble.tif";
+	public static final String IMAGE_1 = "q1/test-pattern.tif";
+	public static final String IMAGE_2 = "q1/blurry-moon.tif";
+	public static final String IMAGE_3 = "q1/ckt-board-saltpep.tif";
+	public static final String IMAGE_4 = "q2/hubble.tif";
 
 
 	  /**
