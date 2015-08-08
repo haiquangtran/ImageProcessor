@@ -22,7 +22,7 @@ public class q2_1 {
 
 		//Set variables
 		int matrixSize = 11;
-		int threshold = 70;
+		int threshold = 90;
 
 		//Cleanse Image with Mean Filter
 		MeanFilter meanFilter= new MeanFilter();
