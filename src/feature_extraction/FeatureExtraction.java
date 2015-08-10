@@ -2,6 +2,12 @@ package feature_extraction;
 
 import ij.process.ImageProcessor;
 
+/**
+ * This class extracts face features from images returning them in a feature vector.
+ *
+ * @author tranhai
+ *
+ */
 public class FeatureExtraction {
 
 	public FeatureVector getImageFeatureVector(ImageProcessor imageProcessor) {
@@ -43,8 +49,6 @@ public class FeatureExtraction {
 
 		for (int row = startRow; row < (startRow + areaSize); row++) {
 			for (int col = startCol; col < (startCol + areaSize); col++) {
-				imageProcessor.putPixelValue(row, col, 0);
-
 				mean += image.getPixel(row, col);
 			}
 		}

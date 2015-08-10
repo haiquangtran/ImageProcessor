@@ -4,8 +4,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class FeatureVector {
+	private ArrayList<Integer> features = new ArrayList<Integer>();
 
-	private ArrayList<Integer> features = new ArrayList<Integer>();;
 
 	public ArrayList<Integer> getFeatures() {
 		return features;
