@@ -64,12 +64,12 @@ public class ImageHelper {
 
 
 	/**
-	 * Returns the mean value of all the pixels in an image.
+	 * Calculates the mean value of all the pixels in an image.
 	 *
 	 * @param imageProcessor
 	 * @return
 	 */
-	public static double getMeanValue(ImageProcessor imageProcessor) {
+	public static double calculateMeanImage(ImageProcessor imageProcessor) {
 		int width = imageProcessor.getWidth();
 		int height = imageProcessor.getHeight();
 		double meanValue = 0;
@@ -82,10 +82,27 @@ public class ImageHelper {
 			}
 		}
 
-		meanValue = meanValue/(width*height);
-
-		return meanValue;
+		return meanValue/(width*height);
 	}
+
+	/**
+	 * Calculates the mean value of the given n x n matrix.
+	 *
+	 * @param matrix
+	 * @return
+	 */
+	public static double calculateMeanMatrix(double[][] matrix) {
+		double meanValue = 0;
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				meanValue += matrix[i][j];
+			}
+		}
+
+		return meanValue/(matrix.length * matrix[0].length);
+	}
+
 
 }
 

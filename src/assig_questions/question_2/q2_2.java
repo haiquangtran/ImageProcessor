@@ -1,8 +1,15 @@
 package assig_questions.question_2;
 
+import java.beans.FeatureDescriptor;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
+import feature_extraction.FeatureExtraction;
+import feature_extraction.FeatureVector;
 import filters.MeanFilter;
+import filters.SobelOperatorFilter;
 import filters.ThresholdFilter;
 import utils.ImageHelper;
 import ij.ImagePlus;
@@ -10,8 +17,12 @@ import ij.process.ImageProcessor;
 
 public class q2_2 {
 
+	/**
+	 * Question 2.2 - Face Detection: Feature Extraction
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String trainingFolder = "src/assets/q2/training/";
 		String facesFolder = "face/";
 		String nonFacesFolder = "non-face/";
@@ -23,16 +34,31 @@ public class q2_2 {
 		ImagePlus mainImage = new ImagePlus(trainingFolder + facesFolder + imageTest);
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
-		int threshold = (int) ImageHelper.getMeanValue(imageProcessor);
+		//Parameters
+		int threshold = (int) ImageHelper.calculateMeanImage(imageProcessor);
 		int matrixSize = 3;
 
-//		MeanFilter meanFilter= new MeanFilter();
-//		meanFilter.setMeanFilterSize(matrixSize);
-//		meanFilter.run(imageProcessor);
 		//Process using threshold filter
 		ThresholdFilter thresholdFilter = new ThresholdFilter();
 		thresholdFilter.setThreshold(threshold);
 		thresholdFilter.run(imageProcessor);
+
+
+		//Write features to file.
+		try {
+			PrintWriter writer = new PrintWriter(ImageHelper.FOLDER + "q2/" + "training.csv");
+
+			//Extract Features and write to file
+			FeatureExtraction featureExtractor = new FeatureExtraction();
+			FeatureVector imageFeatures = featureExtractor.getImageFeatureVector(imageProcessor);
+			imageFeatures.writeToFile(writer, true);
+
+			writer.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		//Display filtered image
 		mainImage.show();
