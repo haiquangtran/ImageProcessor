@@ -12,6 +12,7 @@ import filters.MeanFilter;
 import filters.SobelOperatorFilter;
 import filters.ThresholdFilter;
 import utils.ImageHelper;
+import weka.classifiers.bayes.NaiveBayes;
 import ij.ImagePlus;
 import ij.process.ImageProcessor;
 
@@ -60,6 +61,10 @@ public class q2_2 {
 
 		//Display filtered image
 		mainImage.show();
+
+		NaiveBayes naiveBayes = new NaiveBayes();
+
+
 	}
 
 }
