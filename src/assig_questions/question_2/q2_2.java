@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import feature_extraction.FeatureExtraction;
+import feature_extraction.FeatureStorage;
 import feature_extraction.FeatureVector;
 import filters.MeanFilter;
 import filters.SobelOperatorFilter;
@@ -32,49 +33,11 @@ public class q2_2 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String trainingFolder = "src/assets/q2/training/";
-		String testFolder = "src/assets/q2/test/";
-		String facesFolder = "face/";
-		String nonFacesFolder = "non-face/";
-		String imageTest = "face00001.pgm";
-
-		File[] trainingSetFaces = new File(trainingFolder + facesFolder).listFiles();
-		File[] trainingSetNonFaces = new File(trainingFolder + nonFacesFolder).listFiles();
-
-		File[] testSetFaces = new File(testFolder + facesFolder).listFiles();
-		File[] testSetNonFaces= new File(testFolder + nonFacesFolder).listFiles();
-
-		//Write features to file.
-		try {
-
-			PrintWriter writer = new PrintWriter(ImageHelper.FOLDER + "q2/" + "trainingSet.csv");
-
-			writer.println("feature-1, feature-2, feature-3, class");
-
-			//Write features to files used to train on bayes model
-			writeFeaturesToFile(writer, trainingSetFaces, true);
-			writeFeaturesToFile(writer, trainingSetNonFaces, false);
-
-			writer.close();
-
-
-			PrintWriter testWriter = new PrintWriter(ImageHelper.FOLDER + "q2/" + "testSet.csv");
-
-			testWriter.println("feature-1, feature-2, feature-3, class");
-
-			//Write features to files used to train on bayes model
-			writeFeaturesToFile(testWriter, testSetFaces, true);
-			writeFeaturesToFile(testWriter, testSetNonFaces, false);
-
-			testWriter.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
+		//Write features to a file
+		FeatureStorage featureStorage = new FeatureStorage();
+		featureStorage.save();
 		//Use features extracted on naive bayes
 		runNaiveBayes();
-
 	}
 
 	private static void runNaiveBayes() {
@@ -115,28 +78,6 @@ public class q2_2 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static void writeFeaturesToFile(PrintWriter writer, File[] files, boolean isFace) {
-
-		for (File file: files) {
-			ImagePlus mainImage = new ImagePlus(file.getPath());
-			ImageProcessor imageProcessor = mainImage.getProcessor();
-			FeatureExtraction featureExtractor = new FeatureExtraction();
-
-			//Parameters
-			int threshold = (int) ImageHelper.calculateMeanImage(imageProcessor);
-
-			//Process to binary file using threshold filter
-			ThresholdFilter thresholdFilter = new ThresholdFilter();
-			thresholdFilter.setThreshold(threshold);
-			thresholdFilter.run(imageProcessor);
-
-			//Extract Features and write to file
-			FeatureVector imageFeatures = featureExtractor.getImageFeatureVector(imageProcessor);
-			imageFeatures.writeToFile(writer, isFace);
-		}
-
 	}
 
 }

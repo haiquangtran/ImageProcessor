@@ -9,7 +9,12 @@ public class ImageHelper {
 	public static final String IMAGE_2 = "q1/blurry-moon.tif";
 	public static final String IMAGE_3 = "q1/ckt-board-saltpep.tif";
 	public static final String IMAGE_4 = "q2/hubble.tif";
-
+	public static final String TRAINING_FOLDER = "src/assets/q2/training/";
+	public static final String TEST_FOLDER = "src/assets/q2/test/";
+	public static final String FACES_FOLDER = "face/";
+	public static final String NON_FACES_FOLDER= "non-face/";
+	public static final String TRAINING_CSV= FOLDER + "q2/" + "training-set.csv";
+	public static final String TEST_CSV = FOLDER + "q2/" + "test-set.csv";
 
 	/**
 	 * Calculates inner product of two matrices that have the same length
