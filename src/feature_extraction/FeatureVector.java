@@ -22,7 +22,7 @@ public class FeatureVector {
 			featureValues += features.get(i);
 		}
 		//output part is class label
-		featureValues += ", " + (isFace? 1 : 0) + ",";
+		featureValues += ", " + (isFace? "face": "non-face");
 
 		writer.println(featureValues);
 		writer.flush();
