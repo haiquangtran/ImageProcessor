@@ -38,18 +38,18 @@ public class FeatureStorage {
 
 			writer.println("feature-1, feature-2, feature-3, class");
 
-			//Write features to files used to train on bayes model
+			//Write features from image files to csv files used to train on bayes model
 			writeFeaturesToFile(writer, trainingSetFaces, true);
 			writeFeaturesToFile(writer, trainingSetNonFaces, false);
 
 			writer.close();
 
 
-			PrintWriter testWriter = new PrintWriter(ImageHelper.TRAINING_CSV);
+			PrintWriter testWriter = new PrintWriter(ImageHelper.TEST_CSV);
 
 			testWriter.println("feature-1, feature-2, feature-3, class");
 
-			//Write features to files used to train on bayes model
+			//Write features from image files to csv files used to test on bayes model
 			writeFeaturesToFile(testWriter, testSetFaces, true);
 			writeFeaturesToFile(testWriter, testSetNonFaces, false);
 
