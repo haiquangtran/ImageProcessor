@@ -12,10 +12,13 @@ public class ImageHelper {
 	public static final String TRAINING_FOLDER = "src/assets/q2/training/";
 	public static final String TEST_FOLDER = "src/assets/q2/test/";
 	public static final String FACES_FOLDER = "face/";
-	public static final String NON_FACES_FOLDER= "non-face/";
-	public static final String TRAINING_CSV = FOLDER + "q2/" + "training-set.csv";
-	public static final String TEST_CSV = FOLDER + "q2/" + "test-set.csv";
+	public static final String NON_FACES_FOLDER = "non-face/";
+	public static final String TRAINING_CSV_Q2 = FOLDER + "q2/" + "training-set.csv";
+	public static final String TEST_CSV_Q2 = FOLDER + "q2/" + "test-set.csv";
 	public static final String PATTERN_FOLDER = "src/assets/q3/";
+	public static final String TRAINING_CSV_Q3 = PATTERN_FOLDER + "training-set.csv";
+	public static final String TEST_CSV_Q3 = PATTERN_FOLDER + "test-set.csv";
+	public static final String PATTERN_FILE_Q3 = PATTERN_FOLDER + "pattern-file.csv";
 
 	/**
 	 * Calculates inner product of two matrices that have the same length

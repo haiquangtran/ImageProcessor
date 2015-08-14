@@ -47,8 +47,8 @@ public class q2_2 {
 
 	private static void runNaiveBayes() {
 		//Create features
-		String trainingFile = ImageHelper.TRAINING_CSV;
-		String testFile = ImageHelper.TEST_CSV;
+		String trainingFile = ImageHelper.TRAINING_CSV_Q2;
+		String testFile = ImageHelper.TEST_CSV_Q2;
 
 		//load CSV
 		CSVLoader loaderTrain = new CSVLoader();

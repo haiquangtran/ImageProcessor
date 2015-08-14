@@ -30,25 +30,35 @@ public class PatternFile {
 	}
 
 	/**
-	 * Creates a new file that contains features and output classes from the 6 pattern files.
+	 * Create a new file that contains features and output classes from the 6 pattern files.
+	 * Create a training set containing 50% instances from above file.
+	 * Create a testing set containing 50% instances from above file.
 	 */
 	public void createPatternFile() {
-		//output file
-		String outputFile = ImageHelper.PATTERN_FOLDER + "pattern-file.csv";
-
-		writePatternFile(ImageHelper.PATTERN_FOLDER, outputFile);
+		createDataSets();
 	}
 
-	private void writePatternFile(String folder, String outputFile) {
+	private void createDataSets() {
+		//output files
+		String outputFile = ImageHelper.PATTERN_FILE_Q3;
+		String outputTrainingFile = ImageHelper.TRAINING_CSV_Q3;
+		String outputTestFile = ImageHelper.TEST_CSV_Q3;
+
 		try {
 			PrintWriter writer = new PrintWriter(outputFile);
+			PrintWriter trainingWriter = new PrintWriter(outputTrainingFile);
+			PrintWriter testWriter = new PrintWriter(outputTestFile);
 
 			//Create header info in file
 			writeHeaderInfo(writer);
-			//Write to CSV file
-			writeToFile(writer);
+			writeHeaderInfo(trainingWriter);
+			writeHeaderInfo(testWriter);
+			//Write to CSV file that contains all features
+			writeToFiles(writer, trainingWriter, testWriter);
 
 			writer.close();
+			trainingWriter.close();
+			testWriter.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -60,34 +70,34 @@ public class PatternFile {
 		for (int i = 1; i <= numOfAttributes; i++) {
 			writer.print(featureName + "-" + i + " ,");
 		}
-		writer.print("class");
+		writer.print("class \n");
 	}
 
 	private String labelClass(int i) {
 		if (i < 200) {
-			return "0";
+			return "class-0";
 		} else if (i < 400) {
-			return "1";
+			return "class-1";
 		} else if (i < 600) {
-			return "2";
+			return "class-2";
 		} else if (i < 800) {
-			return "3";
+			return "class-3";
 		} else if (i < 1000) {
-			return "4";
+			return "class-4";
 		} else if (i < 1200) {
-			return "5";
+			return "class-5";
 		} else if (i < 1400) {
-			return "6";
+			return "class-6";
 		} else if (i < 1600) {
-			return "7";
+			return "class-7";
 		} else if (i < 1800) {
-			return "8";
+			return "class-8";
 		} else {
-			return "9";
+			return "class-9";
 		}
 	}
 
-	private void writeToFile(PrintWriter writer) {
+	private void writeToFiles(PrintWriter writer, PrintWriter trainingWriter, PrintWriter testWriter) {
 		try {
 			//Create reader for each file
 			ArrayList<BufferedReader> readers = new ArrayList<BufferedReader>();
@@ -99,8 +109,10 @@ public class PatternFile {
 			int lines = 2000;
 			for (int i = 0; i < lines; i++) {
 				StringBuilder mergeLines = new StringBuilder();
+
+				//Read all files at same position
 				for (int index = 0; index < readers.size(); index++) {
-					String[] numbers = readers.get(index).readLine().split("\\s+");
+					String[] numbers = readers.get(index).readLine().trim().split("\\s+");
 
 					//Format for csv file
 					for (int count = 0; count < numbers.length; count++) {
@@ -112,6 +124,13 @@ public class PatternFile {
 
 				//Write to csv file
 				writer.println(mergeLines.toString());
+
+				//Split dataset
+				if (i % 2 == 0) {
+					trainingWriter.println(mergeLines.toString());
+				} else {
+					testWriter.println(mergeLines.toString());
+				}
 			}
 
 			//Close readers
@@ -122,6 +141,7 @@ public class PatternFile {
 			e.printStackTrace();
 		}
 	}
+
 
 
 }

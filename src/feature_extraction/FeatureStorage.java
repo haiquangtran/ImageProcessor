@@ -25,8 +25,8 @@ public class FeatureStorage {
 	 */
 	public void save() {
 		//Output folders
-		String outputTrainingFile = ImageHelper.TRAINING_CSV;
-		String outputTestFile = ImageHelper.TEST_CSV;
+		String outputTrainingFile = ImageHelper.TRAINING_CSV_Q2;
+		String outputTestFile = ImageHelper.TEST_CSV_Q2;
 
 		//Training set
 		String trainingFolder = ImageHelper.TRAINING_FOLDER;
