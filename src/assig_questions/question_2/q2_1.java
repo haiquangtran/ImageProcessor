@@ -21,8 +21,8 @@ public class q2_1 {
 		ImageProcessor imageProcessor = mainImage.getProcessor();
 
 		//Set variables
-		int matrixSize = 7;
-		int threshold = 170;
+		int matrixSize = 11;
+		int threshold = 90;
 
 		//Cleanse Image with Mean Filter
 		MeanFilter meanFilter= new MeanFilter();

@@ -52,7 +52,7 @@ public class FeatureStorage {
 			File[] folderFaces = new File(folder + ImageHelper.FACES_FOLDER).listFiles();
 			File[] folderNonFaces = new File(folder + ImageHelper.NON_FACES_FOLDER).listFiles();
 
-			writer.println("feature-1, feature-2, feature-3, class");
+			writer.println("feature-1, feature-2, feature-3, feature-4, feature-5, feature-6, feature-7, feature-8, class");
 
 			//Write features from image files to csv files
 			writeFeaturesToFile(writer, folderFaces, true);
@@ -103,6 +103,32 @@ public class FeatureStorage {
 		FeatureVector imageFeatures = featureExtractor.getImageFeatureVector(imageProcessor);
 
 		return imageFeatures;
+	}
+
+
+	/**
+	 * Test method.
+	 * Used to display image from file.
+	 *
+	 * @param file
+	 */
+	public void displayImage(File file) {
+		ImagePlus mainImage = new ImagePlus(file.getPath());
+		ImageProcessor imageProcessor = mainImage.getProcessor();
+		FeatureExtraction featureExtractor = new FeatureExtraction();
+
+		//Parameters
+		int threshold = (int) ImageHelper.calculateMeanImage(imageProcessor);
+
+		//Process to binary file using threshold filter
+		ThresholdFilter thresholdFilter = new ThresholdFilter();
+		thresholdFilter.setThreshold(threshold);
+		thresholdFilter.run(imageProcessor);
+
+		//Extract Features
+		FeatureVector imageFeatures = featureExtractor.getImageFeatureVector(imageProcessor);
+
+		mainImage.show();
 	}
 
 }
