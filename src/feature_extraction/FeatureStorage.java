@@ -24,42 +24,53 @@ public class FeatureStorage {
 	 *  Creates csv files of extracted image features.
 	 */
 	public void save() {
-		//Load Training set
-		File[] trainingSetFaces = new File(ImageHelper.TRAINING_FOLDER + ImageHelper.FACES_FOLDER).listFiles();
-		File[] trainingSetNonFaces = new File(ImageHelper.TRAINING_FOLDER + ImageHelper.NON_FACES_FOLDER).listFiles();
-		//Load Test set
-		File[] testSetFaces = new File(ImageHelper.TEST_FOLDER + ImageHelper.FACES_FOLDER).listFiles();
-		File[] testSetNonFaces= new File(ImageHelper.TEST_FOLDER + ImageHelper.NON_FACES_FOLDER).listFiles();
+		//Output folders
+		String outputTrainingFile = ImageHelper.TRAINING_CSV;
+		String outputTestFile = ImageHelper.TEST_CSV;
+
+		//Training set
+		String trainingFolder = ImageHelper.TRAINING_FOLDER;
+		String testFolder = ImageHelper.TEST_FOLDER;
 
 		//Write features to file.
-		try {
+		writeCSVFile(trainingFolder, outputTrainingFile);
+		writeCSVFile(testFolder, outputTestFile);
+	}
 
-			PrintWriter writer = new PrintWriter(ImageHelper.TRAINING_CSV);
+
+	/**
+	 * Creates a new CSV file and writes extracted image features to it.
+	 *
+	 * @param folder
+	 * @param outputFile
+	 */
+	private void writeCSVFile(String folder, String outputFile) {
+		try {
+			PrintWriter writer = new PrintWriter(outputFile);
+
+			//Load training set or test set
+			File[] folderFaces = new File(folder + ImageHelper.FACES_FOLDER).listFiles();
+			File[] folderNonFaces = new File(folder + ImageHelper.NON_FACES_FOLDER).listFiles();
 
 			writer.println("feature-1, feature-2, feature-3, class");
 
-			//Write features from image files to csv files used to train on bayes model
-			writeFeaturesToFile(writer, trainingSetFaces, true);
-			writeFeaturesToFile(writer, trainingSetNonFaces, false);
+			//Write features from image files to csv files
+			writeFeaturesToFile(writer, folderFaces, true);
+			writeFeaturesToFile(writer, folderNonFaces, false);
 
 			writer.close();
-
-
-			PrintWriter testWriter = new PrintWriter(ImageHelper.TEST_CSV);
-
-			testWriter.println("feature-1, feature-2, feature-3, class");
-
-			//Write features from image files to csv files used to test on bayes model
-			writeFeaturesToFile(testWriter, testSetFaces, true);
-			writeFeaturesToFile(testWriter, testSetNonFaces, false);
-
-			testWriter.close();
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Writes image features from a image folder to a csv file.
+	 *
+	 * @param writer
+	 * @param files
+	 * @param isFace
+	 */
 	private void writeFeaturesToFile(PrintWriter writer, File[] files, boolean isFace) {
 
 		for (File file: files) {

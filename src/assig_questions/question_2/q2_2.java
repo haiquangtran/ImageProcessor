@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import feature_extraction.FeatureExtraction;
 import feature_extraction.FeatureStorage;
 import feature_extraction.FeatureVector;
@@ -34,16 +36,18 @@ public class q2_2 {
 	 */
 	public static void main(String[] args) {
 		//Write features to a file
+		System.out.println("Writing extracted features to csv files...");
 		FeatureStorage featureStorage = new FeatureStorage();
 		featureStorage.save();
+		System.out.println("Finished writing features to csv files...");
 		//Use features extracted on naive bayes
 		runNaiveBayes();
 	}
 
 	private static void runNaiveBayes() {
 		//Create features
-		String trainingFile = ImageHelper.FOLDER + "q2/" + "trainingSet.csv";
-		String testFile = ImageHelper.FOLDER + "q2/" + "testSet.csv";
+		String trainingFile = ImageHelper.TRAINING_CSV;
+		String testFile = ImageHelper.TEST_CSV;
 
 		//load CSV
 		CSVLoader loaderTrain = new CSVLoader();
@@ -71,7 +75,6 @@ public class q2_2 {
 			//Print the result
 			String result = eval.toSummaryString();
 			System.out.println(result);
-
 			//Get the confusion matrix
 			double[][] cmMatrix = eval.confusionMatrix();
 
