@@ -9,6 +9,7 @@ import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 import classification.PatternFile;
+import feature_extraction.FeatureStorage;
 
 public class q3_1 {
 
@@ -20,7 +21,9 @@ public class q3_1 {
 	public static void main(String[] args) {
 		//Process features into a valid CSV file to read.
 		PatternFile patternFile = new PatternFile();
+		System.out.println("Creating training set and test set files...");
 		patternFile.createPatternFile();
+		System.out.println("Finished creating files...");
 		//classify using J48 Decision Tree
 		runJ48DecisionTree();
 	}

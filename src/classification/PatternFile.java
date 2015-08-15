@@ -74,7 +74,7 @@ public class PatternFile {
 	}
 
 	private String labelClass(int i) {
-		if (i < 200) {
+		if (i <= 200) {
 			return "class-0";
 		} else if (i < 400) {
 			return "class-1";
@@ -119,8 +119,8 @@ public class PatternFile {
 						mergeLines.append(numbers[count] + ", ");
 					}
 
-					mergeLines.append(labelClass(i));
 				}
+				mergeLines.append(labelClass(i));
 
 				//Write to csv file
 				writer.println(mergeLines.toString());
@@ -141,7 +141,6 @@ public class PatternFile {
 			e.printStackTrace();
 		}
 	}
-
 
 
 }
