@@ -1,5 +1,7 @@
 package assig_questions.question_3;
 
+import java.awt.BorderLayout;
+import java.io.BufferedReader;
 import java.io.File;
 
 import utils.ImageHelper;
@@ -8,6 +10,8 @@ import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 import classification.PatternFile;
 import feature_extraction.FeatureStorage;
 
@@ -62,8 +66,44 @@ public class q3_1 {
 			//Get the confusion matrix
 			double[][] cmMatrix = eval.confusionMatrix();
 
+			//Display tree
+			displayDecisionTree(decisionTree);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Displays a trained J48 as tree.
+	 * Expects an ARFF filename as first argument.
+	 *
+	 * @author FracPete (fracpete at waikato dot ac dot nz)
+	 */
+
+	private static void displayDecisionTree(Classifier j48) {
+		// display classifier
+		final javax.swing.JFrame jf = new javax.swing.JFrame("Weka Classifier Tree Visualizer: J48");
+		int width = 1800;
+		int height = 900;
+		jf.setSize(width, height);
+		jf.getContentPane().setLayout(new BorderLayout());
+		TreeVisualizer tv;
+		try {
+			tv = new TreeVisualizer(null, ((J48) j48).graph(), new PlaceNode2());
+			jf.getContentPane().add(tv, BorderLayout.CENTER);
+			jf.addWindowListener(new java.awt.event.WindowAdapter() {
+				public void windowClosing(java.awt.event.WindowEvent e) {
+					jf.dispose();
+				}
+			});
+
+			jf.setVisible(true);
+			tv.fitToScreen();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+	}
+
 }
