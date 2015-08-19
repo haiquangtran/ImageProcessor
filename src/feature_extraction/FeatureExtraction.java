@@ -86,8 +86,9 @@ public class FeatureExtraction {
 	 */
 	private double detectLeftEye(ImageProcessor imageProcessor) {
 		int width = imageProcessor.getWidth();
+		int eyeHeight = width/2 - 3;
 
-		return calculateMeanOfSquare(imageProcessor, 0, 0, width/2);
+		return calculateMeanOfRect(imageProcessor, 0, 1, width/2, eyeHeight);
 	}
 
 	/**
@@ -99,8 +100,9 @@ public class FeatureExtraction {
 	 */
 	private double detectRightEye(ImageProcessor imageProcessor) {
 		int width = imageProcessor.getWidth();
+		int eyeHeight = width/2 - 3;
 
-		return calculateMeanOfSquare(imageProcessor, width/2, 0, width/2);
+		return calculateMeanOfRect(imageProcessor, width/2, 1, width/2, eyeHeight);
 	}
 
 	/**
@@ -291,7 +293,6 @@ public class FeatureExtraction {
 		for (int row = startRow; row < (startRow + width); row++) {
 			for (int col = startCol; col < (startCol + height); col++) {
 				mean += image.getPixel(row, col);
-				//				imageProcessor.putPixel(row, col, 0);
 			}
 		}
 

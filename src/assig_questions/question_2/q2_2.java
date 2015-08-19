@@ -44,7 +44,6 @@ public class q2_2 {
 		//Write features to a file
 		System.out.println("Writing extracted features to csv files...");
 		FeatureStorage featureStorage = new FeatureStorage();
-		//		featureStorage.displayImage(new File(ImageHelper.TRAINING_FOLDER + ImageHelper.FACES_FOLDER + "face00001.pgm"));
 		featureStorage.save();
 		System.out.println("Finished writing features to csv files...");
 		//Use features extracted on naive bayes
