@@ -26,6 +26,8 @@ public class q3_1 {
 		//Process features into a valid CSV file to read.
 		PatternFile patternFile = new PatternFile();
 		System.out.println("Creating training set and test set files...");
+		//Load only morph features
+		patternFile.setMorphFeatures(true);
 		patternFile.createPatternFile();
 		System.out.println("Finished creating files...");
 		//classify using J48 Decision Tree
@@ -63,6 +65,7 @@ public class q3_1 {
 			//Print the result
 			String result = eval.toSummaryString();
 			System.out.println(result);
+
 			//Get the confusion matrix
 			double[][] cmMatrix = eval.confusionMatrix();
 

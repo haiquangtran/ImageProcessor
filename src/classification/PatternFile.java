@@ -18,12 +18,14 @@ import utils.ImageHelper;
 public class PatternFile {
 	//Files containing information for classification task.
 	private ArrayList<File> pattFiles = new ArrayList<File>();
+	//Use only morphological features file
+	private boolean morphFeatures = false;
 
 	public PatternFile() {
 		//Pattern files for Q3
-		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER +  "mfeat-fac"));
+		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-fac"));
 		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-fou"));
-		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER +  "mfeat-kar"));
+		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-kar"));
 		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-mor"));
 		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-pix"));
 		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-zer"));
@@ -43,6 +45,11 @@ public class PatternFile {
 		String outputFile = ImageHelper.PATTERN_FILE_Q3;
 		String outputTrainingFile = ImageHelper.TRAINING_CSV_Q3;
 		String outputTestFile = ImageHelper.TEST_CSV_Q3;
+
+		//Use only morphological features file
+		if (morphFeatures) {
+			loadMorphFeaturesOnly();
+		}
 
 		try {
 			PrintWriter writer = new PrintWriter(outputFile);
@@ -66,7 +73,12 @@ public class PatternFile {
 
 	private void writeHeaderInfo(PrintWriter writer) {
 		String featureName = "feature";
-		int numOfAttributes = 649; //distributed over 6 files.
+		int numOfAttributes = 0;
+		if (morphFeatures) {
+			numOfAttributes = 6;
+		} else {
+			numOfAttributes = 649; //distributed over 6 files.
+		}
 		for (int i = 1; i <= numOfAttributes; i++) {
 			writer.print(featureName + "-" + i + " ,");
 		}
@@ -142,5 +154,15 @@ public class PatternFile {
 		}
 	}
 
+	public void setMorphFeatures(boolean trueOrFalse) {
+		this.morphFeatures = trueOrFalse;
+	}
+
+	private void loadMorphFeaturesOnly() {
+		//Remove all files
+		pattFiles.removeAll(pattFiles);
+		//Load in only morphological features
+		pattFiles.add(new File(ImageHelper.PATTERN_FOLDER + "mfeat-mor"));
+	}
 
 }
