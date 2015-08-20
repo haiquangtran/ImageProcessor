@@ -86,9 +86,6 @@ public class q2_2 {
 			//Generate ROC curve
 			generateROC(eval);
 
-			//Get the confusion matrix
-			double[][] cmMatrix = eval.confusionMatrix();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
