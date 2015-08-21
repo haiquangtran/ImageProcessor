@@ -66,8 +66,8 @@ public class q3_1 {
 			String result = eval.toSummaryString();
 			System.out.println(result);
 
-			//Get the confusion matrix
-			double[][] cmMatrix = eval.confusionMatrix();
+			//Print the confusion matrix
+			System.out.println(eval.toMatrixString());
 
 			//Display tree
 			displayDecisionTree(decisionTree);
