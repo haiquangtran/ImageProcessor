@@ -89,7 +89,6 @@ public class FeatureStorage {
 	private FeatureVector extractImageFeatures(File file) {
 		ImagePlus mainImage = new ImagePlus(file.getPath());
 		ImageProcessor imageProcessor = mainImage.getProcessor();
-		FeatureExtraction featureExtractor = new FeatureExtraction();
 
 		//Parameters
 		int threshold = (int) ImageHelper.calculateMeanImage(imageProcessor);
@@ -100,7 +99,8 @@ public class FeatureStorage {
 		thresholdFilter.run(imageProcessor);
 
 		//Extract Features
-		FeatureVector imageFeatures = featureExtractor.getImageFeatureVector(imageProcessor);
+		FeatureExtraction featureExtractor = new FeatureExtraction(imageProcessor);
+		FeatureVector imageFeatures = featureExtractor.getImageFeatureVector();
 
 		return imageFeatures;
 	}
@@ -115,7 +115,6 @@ public class FeatureStorage {
 	public void displayImage(File file) {
 		ImagePlus mainImage = new ImagePlus(file.getPath());
 		ImageProcessor imageProcessor = mainImage.getProcessor();
-		FeatureExtraction featureExtractor = new FeatureExtraction();
 
 		//Parameters
 		int threshold = (int) ImageHelper.calculateMeanImage(imageProcessor);
@@ -124,9 +123,6 @@ public class FeatureStorage {
 		ThresholdFilter thresholdFilter = new ThresholdFilter();
 		thresholdFilter.setThreshold(threshold);
 		thresholdFilter.run(imageProcessor);
-
-		//Extract Features
-		FeatureVector imageFeatures = featureExtractor.getImageFeatureVector(imageProcessor);
 
 		mainImage.show();
 	}

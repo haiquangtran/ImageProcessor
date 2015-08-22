@@ -27,7 +27,7 @@ public class q3_1 {
 		PatternFile patternFile = new PatternFile();
 		System.out.println("Creating training set and test set files...");
 		//Load only morph features
-		patternFile.setMorphFeatures(true);
+		patternFile.setMorphFeatures(false);
 		patternFile.createPatternFile();
 		System.out.println("Finished creating files...");
 		//classify using J48 Decision Tree

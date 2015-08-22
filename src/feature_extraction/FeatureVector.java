@@ -4,10 +4,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class FeatureVector {
-	private ArrayList<Integer> features = new ArrayList<Integer>();
+	private ArrayList<Feature> features = new ArrayList<Feature>();
 
+	public void add(Feature feature) {
+		this.getFeatures().add(feature);
+	}
 
-	public ArrayList<Integer> getFeatures() {
+	public ArrayList<Feature> getFeatures() {
 		return features;
 	}
 
@@ -19,7 +22,7 @@ public class FeatureVector {
 			if (i != 0) {
 				featureValues += ", ";
 			}
-			featureValues += features.get(i);
+			featureValues += features.get(i).getValue();
 		}
 		//output part is class label
 		featureValues += ", " + (isFace? "face": "non-face");

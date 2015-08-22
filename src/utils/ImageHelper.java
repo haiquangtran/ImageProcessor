@@ -71,7 +71,6 @@ public class ImageHelper {
 		return matrix;
 	}
 
-
 	/**
 	 * Calculates the mean value of all the pixels in an image.
 	 *
@@ -112,6 +111,99 @@ public class ImageHelper {
 		return meanValue/(matrix.length * matrix[0].length);
 	}
 
+	/**
+	 * Calculates the standard deviation of an area given the starting location
+	 * and the size of an nxn area.
+	 *
+	 * @param imageProcessor
+	 * @param startX
+	 * @param startY
+	 * @param size
+	 * @return
+	 */
+	public static double calculateStd(ImageProcessor imageProcessor, int startX, int startY, int size) {
+		ImageProcessor image = imageProcessor.duplicate();
+		double mean = calculateMeanOfSquare(imageProcessor, startX, startY, size);
+		double val = 0;
+
+		for (int row = startX; row < size; row++) {
+			for (int col = startY; col < size; col++) {
+				val += Math.pow((image.getPixel(row, col) - mean), 2);
+			}
+		}
+
+		return Math.sqrt(val/(size * size));
+	}
+
+	/**
+	 * Calculates the mean of a square n x n matrix at the centre of an image.
+	 * @param imageProcessor
+	 * @param areaSize
+	 * @return
+	 */
+	public static double calculateMeanOfCenterArea(ImageProcessor imageProcessor, int areaSize) {
+		double mean = 0;
+		int centreRow = (imageProcessor.getWidth()/2);
+		int centreCol = (imageProcessor.getHeight()/2);
+		int startRow = centreRow - (areaSize/2);
+		int startCol = centreCol - (areaSize/2);
+
+		ImageProcessor image = imageProcessor.duplicate();
+
+		// area size relative to center of image
+		for (int row = startRow; row < startRow + areaSize; row++) {
+			for (int col = startCol; col < startRow + areaSize; col++) {
+				mean += image.getPixel(row, col);
+			}
+		}
+
+		return mean/(areaSize*areaSize);
+	}
+
+	/**
+	 * Calculates the mean of a square n x n matrix.
+	 *
+	 * @param imageProcessor
+	 * @param startRow
+	 * @param startCol
+	 * @param areaSize
+	 * @return
+	 */
+	public static double calculateMeanOfSquare(ImageProcessor imageProcessor, int startRow, int startCol, int areaSize) {
+		double mean = 0;
+		ImageProcessor image = imageProcessor.duplicate();
+
+		for (int row = startRow; row < (startRow + areaSize); row++) {
+			for (int col = startCol; col < (startCol + areaSize); col++) {
+				mean += image.getPixel(row, col);
+			}
+		}
+
+		return mean/(areaSize*areaSize);
+	}
+
+	/**
+	 * Calculates the mean of a n x m rectangle matrix.
+	 *
+	 * @param imageProcessor
+	 * @param startRow
+	 * @param startCol
+	 * @param width
+	 * @param height
+	 * @returns
+	 */
+	public static double calculateMeanOfRect(ImageProcessor imageProcessor, int startRow, int startCol, int width, int height) {
+		double mean = 0;
+		ImageProcessor image = imageProcessor.duplicate();
+
+		for (int row = startRow; row < (startRow + width); row++) {
+			for (int col = startCol; col < (startCol + height); col++) {
+				mean += image.getPixel(row, col);
+			}
+		}
+
+		return mean/(width*height);
+	}
 
 }
 
